@@ -2,8 +2,8 @@ const userList = document.querySelector('#userList');
 
 function renderUsers(doc){
     var li = document.createElement('Li');
-    var name = document.createElement('span');
-    var email = document.createElement('span')
+    var name = document.createElement('p');
+    var email = document.createElement('p')
 
     li.setAttribute('data-d', doc.id)
     name.innerHTML = doc.data().firstName;
@@ -15,7 +15,7 @@ function renderUsers(doc){
     userList.appendChild(li)
 }
 
-
+// get user info from firestore
 db.collection('users').get().then((users) => {
     users.docs.forEach(doc => {
         renderUsers(doc)
