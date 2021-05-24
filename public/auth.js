@@ -50,7 +50,7 @@ createform.addEventListener('submit', (e) => {
         var user = firebase.auth().currentUser
 
         // set users in fireStore
-        firebase.firestore().collection('users').doc(cred.user.username).set({
+        firebase.firestore().collection('users').doc(username).set({
           firstName : username,
           middleName : '',
           lastName : '',
