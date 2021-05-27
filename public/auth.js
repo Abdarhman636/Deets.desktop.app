@@ -57,7 +57,7 @@ createform.addEventListener('submit', (e) => {
           suffix: '',
           nickName: '',
           description: '',
-          firstLogin: false,
+          firstLogin: true,
           defaultUser: true
         }).then(() => {
 
