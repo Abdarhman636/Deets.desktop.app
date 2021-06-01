@@ -1,25 +1,25 @@
 const userList = document.querySelector('#userList');
 
-function renderUsers(doc){
-    var li = document.createElement('Li');
-    var name = document.createElement('p');
-    var email = document.createElement('p')
+userList.addEventListener('submit', (e) => {
+    e.preventDefault();
 
-    li.setAttribute('data-d', doc.id)
-    name.innerHTML = doc.data().firstName;
-    email.textContent = doc.data().email;
+    function renderUsers(doc){
+        var li = document.createElement('Li');
+        var name = document.createElement('span');
 
-    li.appendChild(name)
-    li.appendChild(email)
+        li.setAttribute('data-id', doc.id)
+        name.innerHTML = (`<strong>Name:` + `${doc.data().firstName}` + `</strong>`)
 
-    userList.appendChild(li)
-}
-
-// get user info from firestore
-db.collection('users').get().then((users) => {
-    users.docs.forEach(doc => {
-        renderUsers(doc)
-        console.log(doc.data().firstName)
-        console.log(doc.data().email)
+        li.appendChild(name)
+        userList.appendChild(li)
+    }
+    
+    // get user info from firestore
+    db.collection('users').get().then((users) => {
+        users.docs.forEach(doc => {
+            renderUsers(doc)
+            console.log(doc.id)
+        })
     })
 })
+

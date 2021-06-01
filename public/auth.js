@@ -8,75 +8,59 @@ var password = 'godeetsgo';
 
 const createform = document.querySelector('#createform');
 createform.addEventListener('submit', (e) => {
-    e.preventDefault();
+  e.preventDefault();
+  
+  // create rendom username as email
+  function makeEmail() {
+    var text = "";
+    var possible = "abcdefghijklmnopqrstuvwxyz0123456789";
+    for (var i = 0; i < 10; i++)
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+    email = text + ('@my.deets.pro')
+    username = email.replace("@my.deets.pro", "")
+    return email;
+  }
 
-    // create rendom username as email
-    function makeEmail() {
-        var text = "";
-        var possible = "abcdefghijklmnopqrstuvwxyz0123456789";
-        for (var i = 0; i < 10; i++)
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
-        email = text + ('@my.deets.pro')
-        username = email.replace("@my.deets.pro","")
-        return email;
-    }
+  // create a user in database
+  auth.createUserWithEmailAndPassword(makeEmail(), password).then(cred => {
 
-    //  create random paswword
-    // function makePass() {
-    //   var password = "";
-    //   var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    //   for (var i = 0; i < 12; i++)
-    //     password += possible.charAt(Math.floor(Math.random() * possible.length));
-    //   return password;
-    // }
+    // update the current user
+    var user = firebase.auth().currentUser
 
-    // create a user in database
-    auth.createUserWithEmailAndPassword(makeEmail(), password).then(cred => {
+    // set users in fireStore
+    firebase.firestore().collection('users').doc(cred.user.uid).set({
+      firstName: username,
+      middleName: '',
+      lastName: '',
+      email: '',
+      businessPhone: '',
+      mobilePhone: '',
+      homePhone: '',
+      jobTitle: '',
+      company: '',
+      website: '',
+      snapchat: '',
+      facebook: '',
+      instagram: '',
+      twitter: '',
+      image: 'https://cpng.pikpng.com/pngl/s/552-5529288_tie-user-default-suit-business-contact-comments-icon.png',
+      prefix: '',
+      suffix: '',
+      nickName: '',
+      description: '',
+      firstLogin: true,
+      defaultUser: true
+    }).then(() => {
 
-        // update the current user
-        var user = firebase.auth().currentUser
-
-        // set users in fireStore
-        firebase.firestore().collection('users').doc(username).set({
-          firstName : username,
-          middleName : '',
-          lastName : '',
-          email : email,
-          businessPhone : '',
-          mobilePhone : '',
-          homePhone : '',
-          jobTitle : '',
-          company : '',
-          website : '',
-          snapchat : '',
-          facebook : '',
-          instagram : '',
-          twitter : '',
-          image: '',
-          prefix: '',
-          suffix: '',
-          nickName: '',
-          description: '',
-          firstLogin: true,
-          defaultUser: true
-        }).then(() => {
-
-          console.log('user Created')
-          console.log('user id:' + cred.user.uid)
-          console.log(email)
-          console.log(username)
-
-          // update current username in frontend
-          currentUserName.innerHTML = username;
-          currentUserEmail.innerHTML = email;
-          currentUserPassword.innerHTML = password;
-
-
-
-        }).catch(err => {
-          console.log(err.message)
-        })
-
+      // update current username in frontend
+      currentUserName.innerHTML = ('<strong>Username:</strong> ' + username)
+      currentUserEmail.innerHTML = ('<strong>Email:</strong> ' + email)
+      currentUserPassword.innerHTML = ('<strong>Password:</strong> ' + password)
+      
+    }).catch(err => {
+      console.log(err.message)
     })
+
+  })
 
 })
