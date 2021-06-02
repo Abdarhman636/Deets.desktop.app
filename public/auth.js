@@ -1,6 +1,6 @@
 var currentUserName = document.querySelector('#currentUserName');
-var currentUserEmail = document.querySelector('#currentUserEmail');
 var currentUserPassword = document.querySelector('#currentUserPassword');
+var currentUserUrl = document.querySelector('#currentUserUrl');
 
 var username = "";
 var email = "";
@@ -54,8 +54,8 @@ createform.addEventListener('submit', (e) => {
 
       // update current username in frontend
       currentUserName.innerHTML = ('<strong>Username:</strong> ' + username)
-      currentUserEmail.innerHTML = ('<strong>Email:</strong> ' + email)
       currentUserPassword.innerHTML = ('<strong>Password:</strong> ' + password)
+      currentUserUrl.innerHTML = ('<strong>URL:</strong> http://deets.pro/my/id/' + cred.user.uid)
       
     }).catch(err => {
       console.log(err.message)

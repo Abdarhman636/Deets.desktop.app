@@ -1,23 +1,7 @@
-.contentBx {
-  /* position: relative; */
-  margin: 10px 20px;
+small {
+        display: block;
 }
 
-.contentBx .label {
-        /* position: relative; */
-        padding: 10px;
-        background-color: black;
-        color: white;
-        cursor: pointer;
+li {
+        padding-top: 15px;
 }
-
-.contentBx .content {
-        /* position: relative; */
-        background-color: gray !important;
-        height: 0;
-        overflow: hidden;
-        transition: 0.5s;
-        overflow-y: auto;
-}
-
-
